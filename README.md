@@ -76,13 +76,16 @@ colcon build
 source install/setup.bash
 ---
 
-**## Visualize the Robot in Rviz and run the robot in Gazebo**
+## Visualize the Robot in Rviz and run the robot in Gazebo
 ros2 launch my_robot_bringup my_robot.launch.xml
+
 ---
 
-**## Simulation Note**
+## Simulation Note
 
 In simulation, Gazebo directly applies forces to the robot joints.
+
+---
 
 For a real robot, a hardware driver would be required to translate ROS commands into motor signals and read encoder feedback. This project focuses only on simulation.
 
