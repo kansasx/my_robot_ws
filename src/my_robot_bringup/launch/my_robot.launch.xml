@@ -1,0 +1,28 @@
+<launch>
+
+    <let name="urdf_path" value="$(find-pkg-share my_robot_description)/urdf/my_robot.urdf.xacro" />
+    <let name="gazebo_config_path" value="$(find-pkg-share my_robot_bringup)/config/gazebo_bridge.yaml" />
+    <let name="rviz_config_path" value="$(find-pkg-share my_robot_description)/rviz/urdf_config.rviz" />
+
+    <!-- Start the robot state publisher-->
+    <node pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
+    </node>
+
+    <!-- include the launch file for gazebo sim-->
+    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py" >
+        <arg name="gz_args" value="empty.sdf -r" />
+    </include>
+
+    <!-- create an executable and subsrcibe to the robot_description topic-->
+    <node pkg="ros_gz_sim" exec="create" args="-topic robot_description" />
+
+    <!-- Use the Ros_gz_bridge to connect communications between ROS Gazebo-->
+    <node pkg="ros_gz_bridge" exec="parameter_bridge">
+        <param name="config_file" value="$(var gazebo_config_path)" />
+    </node>
+
+    <!-- Start Rviz to visualize the model-->
+    <node pkg="rviz2" exec="rviz2" args="-d $(var rviz_config_path)" />
+    
+</launch>
