@@ -74,11 +74,13 @@ cd my_ros_ws
 rosdep install --from-paths src --ignore-src -r -y
 colcon build
 source install/setup.bash
+---
 
-## Visualize the Robot in Rviz and run the robot in Gazebo
+**## Visualize the Robot in Rviz and run the robot in Gazebo**
 ros2 launch my_robot_bringup my_robot.launch.xml
+---
 
-Simulation Note
+**## Simulation Note**
 
 In simulation, Gazebo directly applies forces to the robot joints.
 
