@@ -25,7 +25,25 @@
         </link>
     </xacro:macro>
 
-    
+    <!-- Added a lidar link macro-->
+    <xacro:macro name="lidar_link" params="suffix">
+        <link name="lidar_${suffix}">
+            <visual>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+                </geometry>
+                <origin xyz=" 0 0 0 " rpy="0 0 0" />
+                <material name="gray" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </collision>
+            <xacro:cylinder_inertia m="1.0" r="${wheel_radius}" l="${wheel_length}" o_xyz="0 0 0" o_rpy="0 0 0"/>
+        </link>
+    </xacro:macro>
 
     <link name="base_footprint" />
 
@@ -56,6 +74,7 @@
 
     <xacro:wheel_link prefix="right" />
     <xacro:wheel_link prefix="left"  />
+    <xacro:lidar_link suffix="0"  />
 
 
     <joint name="base_right_wheel_joint" type="continuous">
@@ -69,6 +88,13 @@
         <parent link="base_link" />
         <child link="left_wheel_link" />
         <origin xyz="${-base_length / 4.0} ${(base_width + wheel_length) / 2.0} 0" rpy="0 0 0" />
+        <axis xyz=" 0 1 0 " />
+    </joint>
+
+    <joint name="base_lidar_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="lidar_0" />
+        <origin xyz="${base_length / 3.0} 0 ${base_height}" rpy="0 0 0" />
         <axis xyz=" 0 1 0 " />
     </joint>
 
