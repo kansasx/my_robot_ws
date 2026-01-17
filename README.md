@@ -76,8 +76,7 @@ colcon build
 source install/setup.bash
 ---
 
-## Visualize the robot in Rviz and run the robot in Gazebo
- Visualize the Robot in Rviz and run the robot in Gazebo
+## Visualize the Robot in Rviz and run the robot in Gazebo
 ros2 launch my_robot_bringup my_robot.launch.xml
 
 ---
